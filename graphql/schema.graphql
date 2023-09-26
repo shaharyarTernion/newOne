@@ -1,33 +1,68 @@
-# input PostInput {
-#   authId: String
-#   postId: String
-#   time: Float
-#   date: Float
-#   title: String
-#   content: String
-#   images: String[]
-# }
-
-# type Post {
-#   authId: String
-#   postId: String
-#   time: Float
-#   date: Float
-#   title: String
-#   content: String
-#   images: String[]
-# }
-input PostInput {
-  id: String;
-  title: String;
+type Comment{
+  commentId: String;
   content: String;
+  authId: String;
+  postId: String;
+  likes: String;
+  date: String;
+  time: String;
+  authName: String
+}
+input Comment{
+  commentId: String;
+  content: String;
+  authId: String;
+  postId: String;
+  likes: String;
+  date: String;
+  time: String;
+  authName: String
+}
+
+input PostInput {
+ authId: String!
+  authorName: String
+  postId: String
+  time: Float
+  date: Float
+  title: String!
+  content: String!
+  images: [String]
+  videos: [String]
+  likes: [String]
+  comments: [Comment]
+  links: [String]
+  location: String
+  privacy: String
+  repost: [String]
+  attachments: [String]
+  views: [String]
 }
 
 type Post {
-  id: String;
-  title: String;
-  content: String;
+  authId: String
+  authorName: String
+  postId: String
+  time: Float
+  date: Float
+  title: String
+  content: String
+  images: [String]
+  videos: [String]
+  likes: [String]
+  comments: [Comment]
+  links: [String]
+  location: String
+  privacy: String
+  repost: [String]
+  attachments: [String]
+  views: [String]
 }
+
+
+
+
+
 
 
 type Query {
