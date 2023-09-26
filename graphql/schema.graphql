@@ -1,0 +1,27 @@
+input PostInput {
+  authId: String
+  postId: String
+  time: Float
+  date: Float
+  title: String
+  content: String
+  images: String[]
+}
+
+type Post {
+  authId: String
+  postId: String
+  time: Float
+  date: Float
+  title: String
+  content: String
+  images: String[]
+}
+
+type Query {
+  getPosts: [Post]
+}
+
+type Mutation {
+  addPost(order: PostInput!): Post
+}
