@@ -131,7 +131,7 @@ import {
   aws_appsync,
   aws_dynamodb,
 } from "aws-cdk-lib";
-export class BackendStack extends cdk.Stack {
+export class NewOneStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -223,8 +223,8 @@ export class BackendStack extends cdk.Stack {
 
     const postsLambda = new aws_lambda.Function(this, "AppSyncPostsHandler", {
       runtime: aws_lambda.Runtime.NODEJS_14_X,
-      handler: "main.handler",
-      code: aws_lambda.Code.fromAsset("functions"),
+      handler: "index.handler",
+      code: aws_lambda.Code.fromAsset("lambda"),
       memorySize: 1024,
     });
     const lambdaDs = api.addLambdaDataSource("lambdaDatasource", postsLambda);
@@ -246,7 +246,7 @@ export class BackendStack extends cdk.Stack {
         name: "id",
         type: aws_dynamodb.AttributeType.STRING,
       },
-      billingMode: aws_dynamodb.BillingMode.PAY_PER_REQUEST
+      billingMode: aws_dynamodb.BillingMode.PAY_PER_REQUEST,
     });
 
     // const todosTable = new aws_dynamodb.Table(this, "CDKTodosTable", {
@@ -256,7 +256,7 @@ export class BackendStack extends cdk.Stack {
     //   },
     // });
     postsTable.grantFullAccess(postsLambda);
-    postsLambda.addEnvironment("ORDERS_TABLE", postsTable.tableName);
+    postsLambda.addEnvironment("POSTS_TABLE", postsTable.tableName);
 
     // Prints out the AppSync GraphQL endpoint to the terminal
     new cdk.CfnOutput(this, "GraphQLAPIURL", {
